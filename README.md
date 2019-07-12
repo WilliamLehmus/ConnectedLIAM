@@ -15,10 +15,10 @@ Parts needed:
 3) 3 male to female dupont cables (standard arduino cables..) 
 
 Software needed:
-1) ESPcoms.ino. Put this in your Liam folder.
-2) Liam_ESP_addon.ino. Change the wifi details and add your Blynk token and then upload this to your ESP
-3) BLYNK phone app
-4) BLYNK arduino library (Found in library manager in Arduino IDE)
+1) BLYNK arduino library (Found in library manager in Arduino IDE)
+2) BLYNK phone app
+3) ESPcoms.ino. Put this in your Liam folder.
+4) Liam_ESP_addon.ino. Change the wifi details and add your Blynk token and then upload this to your ESP
 
 Connections:
 1) NODE-MCU TX -> Morgan Shield Bluetooth RX
