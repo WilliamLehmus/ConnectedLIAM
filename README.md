@@ -27,41 +27,7 @@ Modifications to original LIAM Code:
 A lot of effort has been put in to making this mod as simple as possible to add but
 since LIAM was never meant to be connected some modifications to the code are necessary. 
 
-MOVE THE COMMENTED SECTIONs BELOW TO RESPECTIVE PARTS
-
-  //PLACE THIS IF STATEMENT IN VOID LOOP
-  if ((millis() - lastUpdate) > interval) {   
-  connectedLiam();
-  }
-
-  //------COPY THE WHOLE SECTION BELOW TO GLOBAL VARIABLES------
-  //TIMER
-  unsigned long lastUpdate;           //Move to global variables
-  int interval = 1000;                //Move to global variables
-
-  struct MOWERDATA {          // move to global variable
-    String activity;          //Current activity, I.E mowing, looking for signal, charging etc.
-    int SoC;                  //Current battery level
-    String SoCString;         //Current battery level in string format 
-    float batMin;             //Minimum defined level of battery. Depleted level.
-    float batMax;             //Maximum defined level of battery. SoC when to consider charging complete
-    int leftBWF;              //Status of left BWF. IN (1) or OUT (0).
-    int rightBWF;             //Status of left BWF. IN (1) or OUT (0).
-    int leftRearBWF;          //Status of rear BWF. IN (1) or OUT (0).
-    int rightRearBWF;         //Status of rear BWF. IN (1) or OUT (0).
-    bool insideCable;         //Variable used to check if the mower is inside or outside the BWF or cannot see it.
-  } mowerData;                //Object name. Fetch or edit data by calling for instance mowerData.SoC = batteryLevel;
-
-Finally search for all instances of 'state' in all files through arduino IDE and add this line below all.
-mowerData.activity = state;
-States are the different activites of Liam. There are six of them, for instance: MOWING, LOOKING FOR BWF, DOCKING, CHARGIN etc..
-To correctly make ConnectedLiam report the different states you need to fetch the states wherever they change in the original code.
-
-For instance, when you search for state you will find lines like:
-Switch(state) {
- case MOWING:
-  mowerData.activity = state;     <--- You need to assign the state everytime the state in the original code changes
-  doMowing();
-  break;
+Follow the instructions in wiki for this mod. 
+The same instructions are also available in the ESPcoms.ino file. 
 
 
