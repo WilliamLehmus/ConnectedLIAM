@@ -8,13 +8,13 @@
 /* INSTRUCTIONS
  * PLACE THIS FILE IN THE LIAM FOLDER. YOU NEED TO MODIDFY THE ORIGINAL CONTENT TO MAKE THIS WORK.
  * MOVE THE COMMENTED SECTIONs BELOW TO RESPECTIVE PARTS
- * SEARCH FOR ALL 'state' in all files and under every line where state is defined add 'mowerData.activity = state;'
  * GITHUB: https://github.com/WilliamLehmus/ConnectedLIAM
  */
 
 /*
 
   if ((millis() - lastUpdate) > interval) {   //Place this if statement to void loop
+  mowerData.activity = state;
   connectedLiam();
   }
 
