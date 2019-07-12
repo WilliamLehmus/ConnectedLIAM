@@ -2,6 +2,8 @@
 Addon made by William Lehmus to LIAM diy lawnmower (https://github.com/sm6yvr/liam) which adds wifi connectivity, remote monitoring and control. 
 I´ve also created an additional mod that adds wifi to the base station for remote monitoring and control
 
+CHECK OUT THE WIKI FOR DETAILED INSTRUCTIONS. 
+
 This is a addon to Liam diy lawnmower found at:
 1) GITHUB: https://github.com/sm6yvr/liam
 2) FACEBOOK: https://www.facebook.com/groups/319588508137220/
