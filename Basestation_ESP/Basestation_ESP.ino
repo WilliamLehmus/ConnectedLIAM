@@ -12,9 +12,6 @@
 
 // Select which transmitter type you have by uncommenting that line
 #define __1_L298_Standalone__
-//#define __2_L298_Shield__
-//#define __3_L293_Shield__
-//#define __4_MegaMoto_Shield__
 
 //---- No need to change anything below ----------------------
 
