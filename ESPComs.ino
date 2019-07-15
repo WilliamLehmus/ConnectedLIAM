@@ -12,13 +12,14 @@
  */
 
 /*
-
+  //COPY THIS IF STATEMENT TO VOID LOOP
   if ((millis() - lastUpdate) > interval) {   //Place this if statement to void loop
-  mowerData.activity = state;
-  connectedLiam();
+    mowerData.activity = state;
+    connectedLiam();
   }
 
-  //------COPY THE WHOLE SECTION BELOW TO GLOBAL VARIABLES------
+  //------COPY THE SECTION BELOW TO GLOBAL VARIABLES------
+  
   //TIMER
   unsigned long lastUpdate;           //Move to global variables
   int interval = 1000;                //Move to global variables
@@ -35,7 +36,12 @@
     int rightRearBWF;         //Status of rear BWF. IN (1) or OUT (0).
     bool insideCable;         //Variable used to check if the mower is inside or outside the BWF or cannot see it.
   } mowerData;                //Object name. Fetch or edit data by calling for instance mowerData.SoC = batteryLevel;
+
+
+//-----DONT COPY ANYTHING BELOW THIS POINT. --------
 */
+
+
 
 void connectedLiam() {
   //Read battery level and format
