@@ -44,6 +44,7 @@
     V38 RESERVED
     V39 RESERVED
     V40 MOWER RSSI
+    V41 Segmented switch. 1) Cut my lawn 2) Go home
     v42 TERMINAL
 */
 
