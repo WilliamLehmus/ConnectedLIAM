@@ -19,18 +19,15 @@
    ARDUINO RX - NODEMCU TX (Bluetooth pin on Morgan shield)
    ARDUINO TX - NODEMCU RX (Bluetooth pin on Morgan shield)
 
-
-
-
-    Data is expeced in this form:
-    '116801'. This string means. Activity: Launching, Voltage: 16.80v, Mower is inside BWF
-    Char 1: Control Char: The code looks for the char '@' that signifies that it´s data coming from the connected Liam addon. Otheriwi
-    Char 2: Activity. Datarange: 1-6 see at the bottom of this page to see what the numbers mean
-    Char 3: Voltage. Datarange: 0-9
-    Char 4: Voltage. Datarange: 0-9
-    Char 5: Voltage. Datarange:0-9
-    Char 6: Voltage. Datarange: 0-9
-    Char 7: Inside or outside BWF. Char conversions gives this a 49 (1)=Inside, 48(0) Outside.
+   Data is expeced in this form:
+   '116801'. This string means. Activity: Launching, Voltage: 16.80v, Mower is inside BWF
+   Char 1: Control Char: The code looks for the char '@' that signifies that it´s data coming from the connected Liam addon. Otheriwi
+   Char 2: Activity. Datarange: 1-6 see at the bottom of this page to see what the numbers mean
+   Char 3: Voltage. Datarange: 0-9
+   Char 4: Voltage. Datarange: 0-9
+   Char 5: Voltage. Datarange:0-9
+   Char 6: Voltage. Datarange: 0-9
+   Char 7: Inside or outside BWF. Char conversions gives this a 49 (1)=Inside, 48(0) Outside.
 
     
     Blynk Virtual Channels:
@@ -60,16 +57,17 @@ char auth[] = ""; //This is your blynk token that is generated from the app.
 
 //WIFI
 //PRIMARY WIFI
-const char* ssid1 =      "";    //Primary WIFI SSID
-const char* password1 =  "";    //PRIMARY WIFI PASSWORD
+const char* ssid1 =      "";    //Your wifi SSID
+const char* password1 =  "";    //Your wifi password
 
 //SECONDARY WIFI. Falls back to this if first wifi attempt fails
-const char* ssid2 =      "";    //SECONDARY WIFI SSID
-const char* password2 =  ""; //SECONDARY WIFI PASSWORD
+const char* ssid2 =      "";    //Your wifi SSID
+const char* password2 =  ""; //Your wifi password
 int connectionAttempts = 20;   //Number of attempts before trying nr2
 
 //GLOBALS
 String LiamData = "";
+int LED1 = D0;
 
 struct MOWERDATA {
   String activity;          //Current activity, I.E mowing, looking for signal, charging etc.
@@ -91,6 +89,7 @@ int interval = 1000;        //How often to send the data. 1000ms = 1 sek.
 void setup() {
   Serial.begin(115200);                                   //Init serial monitor
   checkConnection();
+  pinMode(LED1, OUTPUT);                                    //Built in led #1
 
 }
 
@@ -103,8 +102,8 @@ void loop() {
 
 void timer() {  //get data from liam with set interval
   if ((millis() - lastTrig) > interval) {
-    if (Serial.available()) {  //If done receiving send to blynk
-      updateBlynk();            //u
+    if (Serial.available()) {  //If done receiving, send to blynk
+      updateBlynk();            
       getDataFromLiam();
     }
     lastTrig = millis();
@@ -207,17 +206,40 @@ void decodeActivity(String incoming) {
 */
 
 //COMMANDS FROM APP TO LIAM. 1) CUT MY LAWN, 2) GO HOME. NOT USED YET.
-BLYNK_WRITE(V41) {                 //Write data from app to ESP
-  int pinValue = param.asInt();
-  //Serial.println("Instruction from APP to LIAM: " + pinValue);
-  // You can also use:
-  // String i = param.asStr();
-  // double d = param.asDouble();
+BLYNK_WRITE(V41) //Recieve data from app terminal and send to Liam
+{
+  int action = param.asInt();
+  if (action == 1) {  //Cut my lawn
+    Serial.print('d');
+    Serial.print('m'); 
+    terminal.println("Sent Command: Cut my Lawn");
+    terminal.flush();
+  }
+  
+  if (action == 2) { //Go home
+    Serial.print('d');
+    Serial.print('b');   
+    terminal.println("Sent Command: Look for BWF and dock");
+    terminal.flush(); 
+  }
+
+}
+
+//TWO WAY COMMUNICATION WITH LIAM THROUGH BLYNK TERMINAL
+BLYNK_WRITE(V42) //Recieve data from app terminal and send to Liam
+{
+  String action = param.asStr();
+  Serial.print(action);                   //Forward to Liam via Serial
+  terminal.println("You Send Command: ");
+  terminal.write(param.getBuffer(), param.getLength());
+  terminal.println();
+  terminal.flush();
 }
 
 void checkConnection() {
  int connectionTimer = 0;
  if (WiFi.status() != WL_CONNECTED) {
+  digitalWrite(LED1, LOW);
   if (debug) Serial.println("No Connection. Trying to connect");
   WiFi.begin(ssid1,password1);                           
   while (WiFi.status() != WL_CONNECTED) {              
@@ -243,5 +265,8 @@ void checkConnection() {
     delay(500);
   }
   if (debug) Serial.println("Connected to Blynk");
+  }
+  else {
+    digitalWrite(LED1, HIGH);
   }
 }
