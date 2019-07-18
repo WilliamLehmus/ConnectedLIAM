@@ -4,6 +4,9 @@ I´ve also created an additional mod that adds wifi to the base station for remo
 
 CHECK OUT THE WIKI FOR DETAILED INSTRUCTIONS. 
 
+Small video to show what it's about:
+https://youtu.be/ekPqLzNvd-E
+
 This is a addon to Liam diy lawnmower found at:
 1) GITHUB: https://github.com/sm6yvr/liam
 2) FACEBOOK: https://www.facebook.com/groups/319588508137220/
